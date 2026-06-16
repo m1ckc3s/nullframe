@@ -17,7 +17,11 @@ design language. Deploys to Vercel with this folder as the project root.
 - Real data where the browser exposes it (heap, battery, connection, fps,
   input); seeded fakes otherwise (`src/system/fake.ts`). Cards are tagged
   LIVE or SIM accordingly.
-- GitHub-themed widgets are intentionally fake (@nullframe). No network calls.
+- GitHub-themed widgets are intentionally fake (`m1ckc3s`). No network calls.
+- `src/system/sound.ts` — zero-dependency Web Audio synth (`play()` + `SFX`
+  presets recreated from the @web-kits core kit). Cards beep on hover, gated by
+  `soundOn` in context plus a global cooldown; the clock-card `Toggle` flips it.
+  AudioContext unlocks on first user gesture. No audio library.
 
 ## Design DNA (Nothing)
 - Palette tokens live in `styles.css` only — never hardcode grays elsewhere.

@@ -1,3 +1,7 @@
+// Project Nullframe
+// Copyright (c) 2026 Mick Cesanek, MIT License
+// https://github.com/m1ckc3s/nullframe
+
 export type Snapshot = {
   now: number
   bootAt: number
@@ -52,7 +56,7 @@ let simHeap = 384
 let simNet = 8.4
 let battery: Snapshot['battery'] = null
 let batteryReal = false
-let autoSweep = true
+let autoSweep = false
 let sweepTimer = 0
 let bucketTimer = 0
 const buckets = new Int16Array(60)

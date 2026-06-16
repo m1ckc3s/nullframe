@@ -1,3 +1,7 @@
+// Project Nullframe
+// Copyright (c) 2026 Mick Cesanek, MIT License
+// https://github.com/m1ckc3s/nullframe
+
 import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence } from 'motion/react'
 import { bus } from './system/telemetry'
@@ -17,7 +21,8 @@ import { CommandPalette } from './components/CommandPalette'
 export default function App() {
   const [focus, setFocus] = useState(false)
   const [motionOff, setMotionOff] = useState(false)
-  const [autoSweep, setAutoSweepState] = useState(true)
+  const [autoSweep, setAutoSweepState] = useState(false)
+  const [soundOn, setSoundOn] = useState(true)
   const [paletteOpen, setPaletteOpen] = useState(false)
 
   useEffect(() => {
@@ -42,10 +47,12 @@ export default function App() {
         setAutoSweepState(v)
         bus.setAutoSweep(v)
       },
+      soundOn,
+      setSoundOn,
       paletteOpen,
       setPaletteOpen,
     }),
-    [focus, motionOff, autoSweep, paletteOpen],
+    [focus, motionOff, autoSweep, soundOn, paletteOpen],
   )
 
   return (

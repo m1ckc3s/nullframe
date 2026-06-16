@@ -23,6 +23,8 @@ export type Ctl = {
   setMotionOff: (v: boolean) => void
   autoSweep: boolean
   setAutoSweep: (v: boolean) => void
+  soundOn: boolean
+  setSoundOn: (v: boolean) => void
   paletteOpen: boolean
   setPaletteOpen: (v: boolean) => void
 }

@@ -38,7 +38,7 @@ body{
 .focus .dimmable{opacity:.16}
 
 .tag{
-  position:absolute;top:21px;right:18px;
+  margin-left:auto;
   font:700 9px/1 'Space Mono',monospace;letter-spacing:.12em;color:var(--text-disabled);
   opacity:0;transition:opacity .25s var(--ease);
 }
@@ -77,6 +77,22 @@ body{
 }
 .clock-sec{font-family:'Doto',sans-serif;font-weight:400;font-size:34px;color:var(--text-secondary);align-self:flex-end;padding-bottom:12px;font-variant-numeric:tabular-nums}
 .hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.hero-controls{position:absolute;top:62px;right:24px;z-index:3;display:flex;align-items:center}
+.sound-label{font:400 11px/1 'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--text-secondary)}
+.toggle{
+  position:relative;width:36px;height:17px;flex:none;margin-left:18px;
+  background:var(--border-visible);border:none;cursor:pointer;padding:0;
+  transition:background .25s var(--ease);
+}
+.toggle.on{background:var(--utility-orange)}
+.thumb{
+  position:absolute;top:2px;left:2px;width:13px;height:13px;
+  display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:1px;
+  transition:left .28s var(--ease);
+}
+.toggle.on .thumb{left:21px}
+.thumb i{background:var(--text-display);opacity:1;transition:opacity .14s var(--ease)}
+.nofx .thumb,.nofx .thumb i{transition-duration:0s}
 .day{font:500 26px/1.2 'Space Grotesk',sans-serif;letter-spacing:-.01em;color:var(--text-display)}
 .status{max-width:240px;min-height:36px}
 .nowrap{white-space:nowrap}
@@ -214,6 +230,7 @@ canvas{display:block;width:100%;height:100%}
   .hero{grid-column:1/3;grid-row:span 2}
   .contrib,.seismo,.feed{grid-column:1/3}
   .clock{font-size:96px}
+  .week{display:none}
 }
 @media (max-width:520px){
   body{padding:14px}
@@ -226,6 +243,9 @@ canvas{display:block;width:100%;height:100%}
   .doto-val{font-size:48px}
   .metric{font-size:30px}
   .qs-name{width:80px;font-size:14px}
+  .unit{display:none}
+  .tz{display:block}
+  .tz-sep{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
