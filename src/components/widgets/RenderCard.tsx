@@ -29,7 +29,7 @@ export function RenderCard({ index }: { index: number }) {
         </div>
       </div>
       <div className="meta-row" style={{ marginTop: 'auto' }}>
-        <span>RAF · Composite</span>
+        <span>Real-time FPS</span>
         <span>{snap.frameMs.toFixed(1)} MS</span>
       </div>
     </Card>

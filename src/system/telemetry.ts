@@ -1,3 +1,7 @@
+// Project Nullframe
+// Copyright (c) 2026 Mick Cesanek, MIT License
+// https://github.com/m1ckc3s/nullframe
+
 export type Snapshot = {
   now: number
   bootAt: number

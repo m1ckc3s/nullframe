@@ -3,7 +3,9 @@ import { motion } from 'motion/react'
 import { Card } from '../Card'
 import { commitMessages, USER } from '../../system/fake'
 
-type Line = { msg: string; time: string }
+type Line = { id: number; msg: string; time: string }
+
+const KEEP = 8
 
 const pad = (n: number) => String(n).padStart(2, '0')
 const stamp = () => {
@@ -13,32 +15,35 @@ const stamp = () => {
 
 export function ActivityCard({ index }: { index: number }) {
   const [lines, setLines] = useState<Line[]>([])
-  const [typing, setTyping] = useState('')
+  const [typingId, setTypingId] = useState<number | null>(null)
 
   useEffect(() => {
     let alive = true
     let t = 0
     let idx = 0
+    let id = 0
     const push = () => {
       if (!alive) return
       if (document.hidden) {
         t = window.setTimeout(push, 7000)
         return
       }
-      const msg = commitMessages[idx % commitMessages.length]
+      const full = commitMessages[idx % commitMessages.length]
       idx++
+      const myId = id++
       const time = stamp()
+      setLines(ls => [{ id: myId, msg: '', time }, ...ls].slice(0, KEEP))
+      setTypingId(myId)
       let i = 0
       const type = () => {
         if (!alive) return
         i++
-        setTyping(msg.slice(0, i))
-        if (i < msg.length) {
+        setLines(ls => ls.map(l => (l.id === myId ? { ...l, msg: full.slice(0, i) } : l)))
+        if (i < full.length) {
           t = window.setTimeout(type, 18)
         } else {
-          setLines(ls => [{ msg, time }, ...ls].slice(0, 3))
-          setTyping('')
-          t = window.setTimeout(push, 6500)
+          setTypingId(null)
+          t = window.setTimeout(push, 3500)
         }
       }
       type()
@@ -53,22 +58,18 @@ export function ActivityCard({ index }: { index: number }) {
   return (
     <Card index={index} label={`Activity · ${USER}`} right="push · main" className="feed">
       <div className="feed-rows">
-        {typing && (
-          <div className="feed-row">
-            <span>{typing}<span className="sq" /></span>
-            <span className="dim">{stamp()}</span>
-          </div>
-        )}
         {lines.map((l, i) => (
           <motion.div
-            key={l.time + l.msg}
+            key={l.id}
             className="feed-row"
-            style={{ opacity: 1 - i * 0.3 }}
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1 - i * 0.3, y: 0 }}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: Math.max(0, 1 - i * 0.22), y: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <span>{l.msg}</span>
+            <span>
+              {l.msg}
+              {l.id === typingId && <span className="sq" />}
+            </span>
             <span className="dim">{l.time}</span>
           </motion.div>
         ))}

@@ -5,10 +5,10 @@ import { useTelemetry, useCtl } from '../../system/hooks'
 import { statusMessages } from '../../system/fake'
 
 const pad = (n: number) => String(n).padStart(2, '0')
-const TZ = 'America/New_York'
+const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-const nyFmt = new Intl.DateTimeFormat('en-GB', {
+const localFmt = new Intl.DateTimeFormat('en-GB', {
   timeZone: TZ,
   year: 'numeric',
   month: 'short',
@@ -20,9 +20,9 @@ const nyFmt = new Intl.DateTimeFormat('en-GB', {
   hourCycle: 'h23',
 })
 
-function nyParts(ms: number) {
+function localParts(ms: number) {
   const out: Record<string, string> = {}
-  for (const p of nyFmt.formatToParts(new Date(ms))) out[p.type] = p.value
+  for (const p of localFmt.formatToParts(new Date(ms))) out[p.type] = p.value
   return out
 }
 
@@ -117,7 +117,7 @@ export function ClockHero({ index }: { index: number }) {
     }
   }, [])
 
-  const p = nyParts(snap.now)
+  const p = localParts(snap.now)
   const hhmm = scramble ?? `${p.hour}:${p.minute}`
   const week = isoWeek(Number(p.year), MONTHS.indexOf(p.month), Number(p.day))
   const up = Math.floor((snap.now - snap.bootAt) / 1000)
@@ -126,7 +126,7 @@ export function ClockHero({ index }: { index: number }) {
   return (
     <Card
       index={index}
-      label="Local time · New York"
+      label={`Local time · ${TZ.replaceAll('_', ' ')}`}
       right={<>SYS.V4.0.1<br />Uptime {uptime}</>}
       className="hero"
       essential

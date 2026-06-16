@@ -14,7 +14,7 @@ Every card is tagged honestly:
 
 | Widget | Source | Tag |
 |---|---|---|
-| Clock | Real time, pinned to America/New_York | — |
+| Clock | Your live local time zone, auto-detected from the browser | — |
 | Render | Your actual frame rate + frame time, measured off the rAF loop | `LIVE` |
 | Memory | JS heap via `performance.memory` (Chromium) | `LIVE` / `SIM` |
 | Battery | Battery Status API (Chromium) | `LIVE` / `SIM` |
