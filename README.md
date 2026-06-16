@@ -21,7 +21,7 @@ Every card is tagged honestly:
 | Network | Downlink + RTT via Network Information API (Chromium) | `LIVE` / `SIM` |
 | Input seismograph | Your cursor velocity and input rate, drawn live | `LIVE` |
 | Glyph G1 | Canvas icon reel — disc, ring, brackets, pause, dither | — |
-| Contributions / Streak / Activity | Seeded fakes for `@nullframe` | `SIM` |
+| Contributions / Streak / Activity | Seeded fakes for `m1ckc3s` | `SIM` |
 
 Where a browser doesn't expose an API (Safari, Firefox, iOS), the card falls
 back to seeded simulated data and says so — `SIM`, not a lie.
@@ -35,8 +35,9 @@ per-widget timers competing with each other, everything pauses completely when
 the tab is hidden, canvases cap their device-pixel-ratio at 2 and redraw at
 ≤30 fps, and offscreen canvases skip work entirely. It runs cool on a phone.
 
-Press **⌘K** for the command palette: focus mode, sync sweep, clock reroll,
-motion toggle.
+Press **⌘K** for the command palette: focus mode, clock reroll, motion toggle.
+Hover any card for a soft tone — a tiny zero-dependency Web Audio synth, no
+samples — and switch it off with the dot-matrix toggle in the clock card.
 
 ## Stack
 

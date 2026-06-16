@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { Card } from '../Card'
+import { Toggle } from '../Toggle'
 import { bus } from '../../system/telemetry'
 import { useTelemetry, useCtl } from '../../system/hooks'
 import { statusMessages } from '../../system/fake'
+import { play, SFX } from '../../system/sound'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -126,11 +128,30 @@ export function ClockHero({ index }: { index: number }) {
   return (
     <Card
       index={index}
-      label={`Local time · ${TZ.replaceAll('_', ' ')}`}
+      label={
+        <>
+          Local time
+          <span className="tz">
+            <span className="tz-sep"> · </span>
+            {TZ.replaceAll('_', ' ')}
+          </span>
+        </>
+      }
       right={<>SYS.V4.0.1<br />Uptime {uptime}</>}
       className="hero"
       essential
     >
+      <div className="hero-controls">
+        <span className="sound-label">Sound</span>
+        <Toggle
+          on={ctl.soundOn}
+          label="Toggle hover sound"
+          onChange={v => {
+            ctl.setSoundOn(v)
+            play(v ? SFX.toggleOn : SFX.toggleOff, { cooldown: false })
+          }}
+        />
+      </div>
       <div className="clock-line">
         <span className="led" />
         <span className="clock">{hhmm}</span>
@@ -140,7 +161,7 @@ export function ClockHero({ index }: { index: number }) {
         <div>
           <div className="day">{p.weekday}</div>
           <div className="mono-sub">
-            {p.day} {p.month.toUpperCase()} {p.year} · WEEK {week}
+            {p.day} {p.month.toUpperCase()} {p.year}<span className="week"> · WEEK {week}</span>
           </div>
         </div>
         <TypedStatus />

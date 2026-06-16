@@ -12,10 +12,8 @@ export function CommandPalette() {
   const cmds = useMemo(
     () => [
       { label: `Focus mode · ${ctl.focus ? 'off' : 'on'}`, run: () => ctl.setFocus(!ctl.focus) },
-      { label: 'Trigger sync sweep', run: () => bus.sync() },
       { label: 'Reroll clock', run: () => bus.reroll() },
       { label: `Motion FX · ${ctl.motionOff ? 'on' : 'off'}`, run: () => ctl.setMotionOff(!ctl.motionOff) },
-      { label: `Auto sweep · ${ctl.autoSweep ? 'off' : 'on'}`, run: () => ctl.setAutoSweep(!ctl.autoSweep) },
     ],
     [ctl],
   )
